@@ -15,8 +15,9 @@ const Display = (props: PropsType) => {
             "last-number" : undefined}>
 
             {props.minValue >= props.maxValue ?
-                <div className={'incorrect-value'}>Incorrect value!</div> : props.isDisabled ?
-                    <div className={'enter-value'}>Enter values and press SET</div> : props.counter}
+                <div className={'incorrect-value'}>Incorrect value!</div> : props.minValue < 0 ?
+                    <div className={'incorrect-value'}>Incorrect value!</div> : props.isDisabled ?
+                        <div className={'enter-value'}>Enter values and press SET</div> : props.counter}
 
         </div>
     )
