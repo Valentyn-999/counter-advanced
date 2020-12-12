@@ -1,73 +1,65 @@
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import './App.css';
-import {AddButtons} from "./buttons/AddButton";
-import {Display} from "./Display";
-import {MaxValue} from "./Manu/MaxValue";
-import {StartValue} from "./Manu/StartValue";
-import {SetButton} from "./Manu/SetButton";
+import SetButton from "./SettingsMenu/SetButton";
+import StartValue from './SettingsMenu/StartValue';
+import MaxValue from './SettingsMenu/MaxValue';
+import IncButton from './SecondMenu/IncButtons';
+import Display from "./SecondMenu/Display";
+import ResetButton from './SecondMenu/ResetButton';
 
 
 function App() {
 
 
     const [counter, setCounter] = useState<number>(0)
-    const [minValue, setMinValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(5)
-    const [disableSetB, setDisableSetB] = useState<boolean>(true)
+    const [minValue, setMinValue] = useState<number>(Number(localStorage.getItem("minValue")))
+    const [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("maxValue")))
+    const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
 
     function addNumber() {
-        setCounter(counter + 1)
+        return setCounter(counter + 1)
     }
 
     function resetNumber() {
+        return setCounter(minValue)
+    }
+    function setMinimum(e: ChangeEvent<HTMLInputElement>) {
+        setIsDisabled(true)
+        const newMinimum = Number(e.currentTarget.value)
+        localStorage.setItem("minValue", newMinimum.toString())
+        return setMinValue(newMinimum)
+    }
+    function setMaximum(e: ChangeEvent<HTMLInputElement>) {
+        setIsDisabled(true)
+        const newMaximum = Number(e.currentTarget.value)
+        localStorage.setItem("maxValue", newMaximum.toString())
+        return setMaxValue(newMaximum)
+    }
+
+    function setUndisable() {
+        setIsDisabled(false)
         setCounter(minValue)
     }
 
-    function setValueOf () {
-        // @ts-ignore
-        const inputValueMax = document.getElementById("max-value").value
-        // @ts-ignore
-        const inputValueMin = document.getElementById("min-value").value
-
-        const toNumberMax = parseInt(inputValueMax)
-        const toNumberMin = parseInt(inputValueMin)
-        setMaxValue(toNumberMax)
-        setMinValue(toNumberMin)
-        setCounter(toNumberMin)
-    }
-    function setDisableHere () {
-        debugger
-        setDisableSetB(false)
-    }
-
     return (
-        <div className="App">
-            <div className={'column settings'}>
-                <div className="maxValue">
-                    <MaxValue setValueOf={setValueOf} maxValue={maxValue} setDisableHere={setDisableHere}/>
-                </div>
-                <div className="startValue">
-                    <StartValue setValueOf={setValueOf} minValue={minValue} setDisableHere={setDisableHere}/>
-                </div>
-                <div>
-                    <SetButton maxValue={maxValue} minValue={minValue} setValueOf={setValueOf} counter={counter} disableSetB={disableSetB}/>
-                </div>
+        <div className={'App'}>
+            <div className={'settings1'}>
+                <div className={'sMaxValue'}><MaxValue maxValue={maxValue} setMaximum={setMaximum}/></div>
+
+                <div className={'sStartValue'}><StartValue minValue={minValue} setMinimum={setMinimum}/></div>
+
+                <div className={'sSetButton'}><SetButton setUndisable={setUndisable} isDisabled={isDisabled} minValue={minValue} maxValue={maxValue}/></div>
             </div>
-            <div className={'column bestCounter'}>
-                <div className="counterSS">
-                    <Display counter={counter} maxValue={maxValue} minValue={minValue}/>
-                </div>
-                <AddButtons
-                            resetNumber={resetNumber}
-                            addNumber={addNumber}
-                            counter={counter}
-                            maxValue={maxValue}
-                            minValue={minValue}
-                />
+            <div className={'settings2'}>
+                <div className={'sDisplay'}><Display counter={counter} maxValue={maxValue} minValue={minValue} isDisabled={isDisabled}/></div>
+
+                <div className={'sInc'}><IncButton addNumber={addNumber} maxValue={maxValue} counter={counter} isDisabled={isDisabled}/></div>
+
+                <div className={'sReset'}><ResetButton resetNumber={resetNumber} isDisabled={isDisabled}/></div>
             </div>
         </div>
-    );
+    )
 }
 
 

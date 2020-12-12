@@ -1,43 +1,117 @@
 .App {
   display: grid;
-  grid-template-columns: 1000px 1000px;
-  gap: 10px;
-
-  margin-top: 200px;
-  text-align: center;
+  grid-template-columns: 300px 400px 150px 400px 100px auto;
+  grid-template-rows: 150px 300px 250px auto;
+  grid-template-areas:
+    "e e e e e e"
+    "e sett e sett e e"
+    "e e e e e e"
+    "e e e e e e";
+  gap: 5px;
+  background-color: darkslateblue;
 }
-/*button {*/
-/*  border: solid red 2px;*/
-/*  height: 50px;*/
-/*  width: 100px;*/
-/*}*/
-/*.counterSS {*/
-/*  margin-left: 670px;*/
-/*  margin-right: 670px;*/
-/*  border: solid blue 2px;*/
-/*}*/
-.activeS {
-  font-size: 20px;
+
+.settings1 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  background-color: darkmagenta;
+
+}
+.settings2 {
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  background-color: darkmagenta;
+}
+
+.settings1 {
+  display: grid;
+  grid-template-columns: 20px 100px auto 100px 20px;
+  grid-template-rows: 20px 40px 20px 40px 100px 60px;
+  grid-template-areas:
+    "a a a a a"
+    "a b b b a"
+    "a b b b a"
+    "a b b b a"
+    "a b b b a"
+    "a a a a a";
+  gap: 0;
+  border: 10px solid aliceblue;
+
+}
+.settings1 .sMaxValue {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  justify-self: center;
+
+}
+.settings1 .sStartValue {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  justify-self: center;
+}
+.settings1 .sSetButton {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  justify-self: center;
+
+}
+
+.settings2 {
+  display: grid;
+  grid-template-columns: 20px 100px auto 100px 20px;
+  grid-template-rows: 20px 40px 20px 40px 100px 60px;
+  grid-template-areas:
+    "a a a a a"
+    "a b b b a"
+    "a b b b a"
+    "a b b b a"
+    "a b b b a"
+    "a a a a a";
+  gap: 0;
+  border: 10px solid aliceblue;
+}
+.settings2 .sDisplay {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  place-self: center;
+  font-size: 50px
+}
+.settings2 .sReset {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  justify-self: center;
+}
+.settings2 .sInc {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 6;
+  justify-self: center;
+}
+
+.last-number {
   color: red;
 }
 
-/*Pica*/
-.column {
-  justify-items: center;
+.enter-value {
+  font-size: 20px;
 }
 
-.settings {
-  background-color: darkgrey;
-  width: 50%;
-  margin-left: 250px
+.incorrect-value {
+  font-size: 20px;
+  color: red;
 }
-
-.bestCounter {
-  background-color: cornflowerblue;
-  width: 50%;
-  /*margin-right: 10px*/
-}
-
 
 .minValue {
   color: white;
@@ -45,12 +119,12 @@
 .maxValue {
   color: white;
 }
-/*#min-value {*/
-/*  background-color: red*/
+/*#set-id {*/
+/*  background-color: red;*/
 /*}*/
-/*menu*/
-
-/*.menu {*/
-/*  margin-left: 200px;*/
+/*#reset-id {*/
+/*  background-color: red;*/
+/*}*/
+/*#inc-id {*/
 /*  background-color: red;*/
 /*}*/
