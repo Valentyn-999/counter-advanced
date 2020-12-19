@@ -2,29 +2,24 @@ import React, {ChangeEvent} from 'react';
 import {TextField} from "@material-ui/core";
 
 type PropsType = {
-
-    setMaximum: (e: ChangeEvent<HTMLInputElement>) => void
-    maxValue: number
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    value: number
+    label: string
 }
 
 
 
-export const MaxValue = (props: PropsType) => {
-
-
+export const Inputs = (props: PropsType) => {
     return (
         <div>
             <div className={"maxValue"}>
-
                 <TextField id="standard-basic"
-                           label="Max value"
+                           label={props.label}
                            type={"number"}
-                           value={props.maxValue}
-                           onChange={props.setMaximum }
+                           value={props.value}
+                           onChange={props.onChange }
                 />
             </div>
         </div>
     )
 }
-
-export default MaxValue

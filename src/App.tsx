@@ -1,66 +1,58 @@
-import React, {useState, ChangeEvent} from 'react';
+import React from 'react';
 import './App.css';
-import SetButton from "./SettingsMenu/SetButton";
-import StartValue from './SettingsMenu/StartValue';
-import MaxValue from './SettingsMenu/MaxValue';
-import IncButton from './SecondMenu/IncButtons';
-import Display from "./SecondMenu/Display";
-import ResetButton from './SecondMenu/ResetButton';
+import {Counter} from './Counter';
+import {useDispatch} from "react-redux";
+import {AddNumberAC, ResetNumberAC, SetAsDisableAC, SetMaximumAC, SetMinimumAC} from "./redux/counter-reducer";
 
+export type CounterType = {
+    counter: number
+    minValue: number
+    maxValue: number
+    isDisabled: boolean
+}
 
 function App() {
 
-
-    const [counter, setCounter] = useState<number>(0)
-    const [minValue, setMinValue] = useState<number>(Number(localStorage.getItem("minValue")))
-    const [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("maxValue")))
-    const [isDisabled, setIsDisabled] = useState<boolean>(false)
+    const dispatch = useDispatch()
 
 
     function addNumber() {
-        return setCounter(counter + 1)
+        debugger
+    const action = AddNumberAC()
+        dispatch(action)
     }
 
     function resetNumber() {
-        return setCounter(minValue)
-    }
-    function setMinimum(e: ChangeEvent<HTMLInputElement>) {
-        setIsDisabled(true)
-        const newMinimum = Number(e.currentTarget.value)
-        localStorage.setItem("minValue", newMinimum.toString())
-        return setMinValue(newMinimum)
-    }
-    function setMaximum(e: ChangeEvent<HTMLInputElement>) {
-        setIsDisabled(true)
-        const newMaximum = Number(e.currentTarget.value)
-        localStorage.setItem("maxValue", newMaximum.toString())
-        return setMaxValue(newMaximum)
+        const action = ResetNumberAC()
+        dispatch(action)
     }
 
-    function setUndisable() {
-        setIsDisabled(false)
-        setCounter(minValue)
+    function setMinimum(minValue: number, isDisabled: boolean) {
+        const action = SetMinimumAC(minValue, isDisabled)
+        dispatch(action)
+    }
+
+    function setMaximum(maxValue: number, isDisabled: boolean) {
+        const action = SetMaximumAC(maxValue, isDisabled)
+        dispatch(action)
+    }
+
+    function setAsDisable(isDisabled: boolean) {
+        const action = SetAsDisableAC(isDisabled)
+        dispatch(action)
     }
 
     return (
-        <div className={'App'}>
-            <div className={'settings1'}>
-                <div className={'sMaxValue'}><MaxValue maxValue={maxValue} setMaximum={setMaximum}/></div>
-
-                <div className={'sStartValue'}><StartValue minValue={minValue} setMinimum={setMinimum}/></div>
-
-                <div className={'sSetButton'}><SetButton setUndisable={setUndisable} isDisabled={isDisabled} minValue={minValue} maxValue={maxValue}/></div>
-            </div>
-            <div className={'settings2'}>
-                <div className={'sDisplay'}><Display counter={counter} maxValue={maxValue} minValue={minValue} isDisabled={isDisabled}/></div>
-
-                <div className={'sInc'}><IncButton addNumber={addNumber} maxValue={maxValue} counter={counter} isDisabled={isDisabled}/></div>
-
-                <div className={'sReset'}><ResetButton resetNumber={resetNumber} isDisabled={isDisabled}/></div>
-            </div>
+        <div>
+            <Counter
+            addNumber={addNumber}
+            resetNumber={resetNumber}
+            setMinimum={setMinimum}
+            setMaximum={setMaximum}
+            setAsDisable={setAsDisable}
+            />
         </div>
     )
 }
-
 
 export default App;

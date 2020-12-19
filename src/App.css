@@ -16,7 +16,7 @@
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
-  background-color: darkmagenta;
+  background-color: mediumpurple;
 
 }
 .settings2 {
@@ -24,7 +24,7 @@
   grid-column-end: 5;
   grid-row-start: 2;
   grid-row-end: 3;
-  background-color: darkmagenta;
+  background-color: mediumpurple;
 }
 
 .settings1 {
@@ -119,12 +119,4 @@
 .maxValue {
   color: white;
 }
-/*#set-id {*/
-/*  background-color: red;*/
-/*}*/
-/*#reset-id {*/
-/*  background-color: red;*/
-/*}*/
-/*#inc-id {*/
-/*  background-color: red;*/
-/*}*/
+
